@@ -5,7 +5,6 @@ import ru.babudzhi.person.Person;
 import javax.servlet.ServletException;
 import java.io.IOException;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -13,7 +12,6 @@ public class ServiceBD {
     private static final String CREATE_QUERY = "CREATE TABLE IF NOT EXISTS TEST123 (name3 VARCHAR(45), name1 VARCHAR(45), name2 varchar (45))";
     private String DATA_QUERY = "";
     private static final String DELETE_QUERY = "DROP TABLE IF EXISTS TEST123";
-    public List<String> listResults;
 
     public void controller(boolean dropTable, Person pers) throws ServletException, IOException {
         DATA_QUERY = "INSERT INTO TEST123 VALUES ('" + pers.getName3() + "','" + pers.getName1() + "','" + pers.getName2() + "')";
@@ -30,31 +28,34 @@ public class ServiceBD {
                 if (pers.getName1() != null && pers.getName2() != null && pers.getName3() != null)
                     dataQuery.execute(DATA_QUERY);
             }
-            PreparedStatement query = db.prepareStatement("SELECT * FROM TEST123");
-            ResultSet rs = query.executeQuery();
 
-            listResults = convertToList(rs);
         } catch (SQLException ex) {
             System.out.println("Database connection failure: "
                     + ex.getMessage());
         }
     }
+    public void select(List<Person> list1) {
+        try (Connection db = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "")) {
+            try (Statement dataQuery = db.createStatement()) {
+                PreparedStatement query = db.prepareStatement("SELECT * FROM TEST123");
+                ResultSet rs = query.executeQuery();
+                convertToList(rs,list1);
 
-    protected List convertToList(ResultSet rs) throws SQLException {
-        List<String> arrayList = new ArrayList<>();
-        while (rs.next()) {
-            String str;
-            str = String.format("%s %s %s ", rs.getString(1), rs.getString(2), rs.getString(3));
-            arrayList.add(str);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return arrayList;
     }
 
-    public List<String> getListResults() {
-        if(!(listResults.isEmpty()))
-            return listResults;
-        else
-            return null;
+    protected void convertToList(ResultSet rs, List<Person> p2) throws SQLException {
+        Person pers1 = new Person();
+        while (rs.next()) {
+            pers1.setName1(rs.getString(2));
+            pers1.setName2(rs.getString(3));
+            pers1.setName3(rs.getString(1));
+            p2.add(pers1);
+        }
     }
-
 }

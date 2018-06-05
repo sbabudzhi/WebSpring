@@ -10,12 +10,15 @@ import org.springframework.web.servlet.ModelAndView;
 import ru.babudzhi.person.Person;
 import javax.servlet.ServletException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class PersonController {
     @Autowired
     ServiceBD ser1;
 
+    List<Person> listP = new ArrayList<>();
     @RequestMapping(value = ("/bd"), method = RequestMethod.POST)
     //public ModelAndView doPost(@RequestParam Person pers1) throws ServletException, IOException {
     public ModelAndView doPost(@SessionAttribute String sesId, @SessionAttribute String userId,
@@ -28,17 +31,17 @@ public class PersonController {
         pers1.setName2(new String(middleName.getBytes("iso-8859-1"), "utf8"));
         pers1.setName3(new String(lastName.getBytes("iso-8859-1"), "utf8"));
 
-        if(userId.equals(sesId))
+        if(userId.equals(sesId)) {
             ser1.controller(dropTable, pers1);
-
+        }
+        ser1.select(listP);
         return new ModelAndView("index");
     }
     @RequestMapping(value=("/bd"), method = RequestMethod.GET)
     public ModelAndView doGet(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("results");
-        modelAndView.addObject("list",ser1.getListResults());
-
+        modelAndView.addObject("list1", listP );
         return modelAndView;
     }
 }

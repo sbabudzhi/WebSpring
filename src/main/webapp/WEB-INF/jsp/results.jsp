@@ -8,9 +8,11 @@
 <b>Список введеных человек:</b>
 <table>
     <tbody>
-    <c:forEach items="${list}" var="test">
+    <c:forEach items="${list1}" var="test">
         <p>
-            <c:out value="${test}"/>
+            <c:out value="${test.name3}"/>
+            <c:out value="${test.name1}"/>
+            <c:out value="${test.name2}"/>
         </p>
     </c:forEach>
     </tbody>
