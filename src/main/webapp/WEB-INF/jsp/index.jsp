@@ -1,7 +1,5 @@
 <%@ page contentType="text/html;charset=utf-8" %>
-<%
-    session.setAttribute("sessionId", session.getId());
-%>
+
 <html>
 <head>
     <meta charset="UTF-8">
