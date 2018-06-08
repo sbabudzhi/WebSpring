@@ -1,15 +1,6 @@
 <%@ page contentType="text/html;charset=utf-8" %>
 <%
-    String userId = "";
-    boolean dropTable = false;
-
-    if(session.isNew()) {
-        dropTable = true;
-        userId = session.getId();
-    }
-    session.setAttribute("dropTable", dropTable);
-    session.setAttribute("userId", userId);
-    session.setAttribute("sesId", session.getId());
+    session.setAttribute("sessionId", session.getId());
 %>
 <html>
 <head>
@@ -24,15 +15,15 @@
 <body >
 <div class="text">
     <h1>Введите Ваши ФИО:</h1>
-    <form method="post"  action="bd" accept-charset="UTF-8">
+    <form method="post"  action="personController" accept-charset="UTF-8">
         <p> <input type="text" name="lastName" onkeydown="if(event.keyCode==13){return false;}">
             <input type="text" name="firstName" onkeydown="if(event.keyCode==13){return false;}">
             <input type="text" name="middleName" onkeydown="if(event.keyCode==13){return false;}"> </p>
-        <input type="submit" name="enter">
+        <input type="submit" name="enter" value="Отправить">
     </form>
 </div>
 
-<form method="get" action="bd">
+<form method="post" action="personControllerResult">
     <p> <input type="submit" name="res" value="Результат" ></p>
 </form>
 </body>

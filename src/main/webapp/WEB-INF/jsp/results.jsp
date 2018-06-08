@@ -10,9 +10,9 @@
     <tbody>
     <c:forEach items="${list1}" var="test">
         <p>
-            <c:out value="${test.name3}"/>
-            <c:out value="${test.name1}"/>
-            <c:out value="${test.name2}"/>
+            <c:out value="${test.lastName}"/>
+            <c:out value="${test.firstName}"/>
+            <c:out value="${test.middleName}"/>
         </p>
     </c:forEach>
     </tbody>

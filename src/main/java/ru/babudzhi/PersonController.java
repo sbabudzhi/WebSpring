@@ -10,38 +10,39 @@ import org.springframework.web.servlet.ModelAndView;
 import ru.babudzhi.person.Person;
 import javax.servlet.ServletException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class PersonController {
     @Autowired
-    ServiceBD ser1;
+    ServiceDataBase serviceDataBase;
 
-    List<Person> listP = new ArrayList<>();
-    @RequestMapping(value = ("/bd"), method = RequestMethod.POST)
-    //public ModelAndView doPost(@RequestParam Person pers1) throws ServletException, IOException {
-    public ModelAndView doPost(@SessionAttribute String sesId, @SessionAttribute String userId,
-            @SessionAttribute boolean dropTable, @RequestParam String firstName, @RequestParam String middleName,
+    @RequestMapping(value = ("/personController"), method = RequestMethod.POST)
+    public ModelAndView doPost(@SessionAttribute String sessionId, @RequestParam String firstName, @RequestParam String middleName,
             @RequestParam String lastName)
-            throws ServletException, IOException {
+            throws IOException, ServletException {
 
-        Person pers1 = new Person();//context.getBean("pers1", Person.class);
-        pers1.setName1(new String(firstName.getBytes("iso-8859-1"), "utf8"));
-        pers1.setName2(new String(middleName.getBytes("iso-8859-1"), "utf8"));
-        pers1.setName3(new String(lastName.getBytes("iso-8859-1"), "utf8"));
+        Person person = new Person( new String(lastName.getBytes("iso-8859-1"), "utf8"),
+                new String(firstName.getBytes("iso-8859-1"), "utf8"),
+                new String(middleName.getBytes("iso-8859-1"), "utf8"),
+                new String(sessionId));
 
-        if(userId.equals(sesId)) {
-            ser1.controller(dropTable, pers1);
-        }
-        ser1.select(listP);
+        serviceDataBase.connectWithDataBase();
+        serviceDataBase.insertInDataBase(person);
         return new ModelAndView("index");
     }
-    @RequestMapping(value=("/bd"), method = RequestMethod.GET)
-    public ModelAndView doGet(){
+
+    @RequestMapping(value=("/personControllerResult"), method = RequestMethod.POST)
+    public ModelAndView doPost(@SessionAttribute String sessionId) throws SQLException {
+
+        List<Person> listPerson = new ArrayList<>();
+        serviceDataBase.selectFromDataBase(listPerson, sessionId);
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("results");
-        modelAndView.addObject("list1", listP );
+        modelAndView.addObject("list1", listPerson );
         return modelAndView;
     }
 }
