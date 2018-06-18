@@ -39,11 +39,8 @@ public class PersonController {
 //        modelAndView.addObject("list1", listPerson );
 //        return modelAndView;
 //    }
-
+    @Autowired
     private PersonService personService;
-
-    @Autowired(required=true)
-  //  @Qualifier(value="personService")
     public void setPersonService(PersonService ps){
         this.personService = ps;
     }
