@@ -8,7 +8,7 @@
 <b>Список введеных человек:</b>
 <table>
     <tbody>
-    <c:forEach items="${list1}" var="test">
+    <c:forEach items="${listPerson}" var="test">
         <p>
             <c:out value="${test.lastName}"/>
             <c:out value="${test.firstName}"/>

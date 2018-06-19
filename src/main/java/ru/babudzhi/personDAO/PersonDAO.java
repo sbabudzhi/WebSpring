@@ -1,14 +1,13 @@
 package ru.babudzhi.personDAO;
 
-import ru.babudzhi.modelPerson.PersonTable;
-
+import ru.babudzhi.modelPerson.Person;
 import java.util.List;
 
 public interface PersonDAO {
 
-    public void addPerson(PersonTable p);
-    public void updatePerson(PersonTable p);
-    public List<PersonTable> listPersons();
-    public PersonTable getPersonById(String sessionId);
+    public void addPerson(Person p);
+    public void updatePerson(Person p);
+    public List<Person> listPersons();
+    public List<Person> getPersonById(String sessionId);
     public void removePerson(String sessionId);
 }

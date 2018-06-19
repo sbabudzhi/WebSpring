@@ -2,23 +2,22 @@ package ru.babudzhi.modelPerson;
 
 import javax.persistence.*;
 
-
 @Entity
 @Table(name = "TEST123", schema = "PUBLIC", catalog = "TEST")
-public class PersonTable  {
+public class Person {
 
     private String lastName;
     private String firstName;
     private String middleName;
     private String sessionId;
 
-    public PersonTable(String lastName, String firstName, String middleName, String sessionId){
+    public Person(String lastName, String firstName, String middleName, String sessionId){
         this.lastName = lastName;
         this.firstName = firstName;
         this.middleName = middleName;
         this.sessionId = sessionId;
     }
-    public PersonTable(){}
+    public Person(){}
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
@@ -42,19 +41,13 @@ public class PersonTable  {
     }
     @Basic
     @Column(name = "FIRSTNAME")
-    public String getFirstName() {
-        return firstName;
-    }
+    public String getFirstName() { return firstName; }
     @Basic
     @Column(name = "MIDDLENAME")
-    public String getMiddleName() {
-        return middleName;
-    }
-    @Basic
+    public String getMiddleName() { return middleName; }
+    @Id
     @Column(name = "SESSIONID")
-    public String getSessionId() {
-        return sessionId;
-    }
+    public String getSessionId() { return sessionId; }
 
 
     @Override
@@ -62,7 +55,7 @@ public class PersonTable  {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PersonTable that = (PersonTable) o;
+        Person that = (Person) o;
 
         if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
         if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;

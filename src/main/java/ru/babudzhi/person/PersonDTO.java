@@ -1,12 +1,12 @@
 package ru.babudzhi.person;
 
-public class Person  {
+public class PersonDTO {
     private String firstName;
     private String middleName;
     private String lastName;
     private String sessionId;
 
-    public Person(String lastName, String firstName, String middleName, String sessionId) {
+    public PersonDTO(String lastName, String firstName, String middleName, String sessionId) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.middleName = middleName;

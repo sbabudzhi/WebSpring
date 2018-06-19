@@ -2,7 +2,8 @@ package ru.babudzhi.serviceDB;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.SessionAttribute;
-import ru.babudzhi.person.Person;
+import ru.babudzhi.person.PersonDTO;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,10 +30,10 @@ public class ServiceDataBase {
         }
     }
 
-    public void insertInDataBase (Person person){
+    public void insertInDataBase (PersonDTO personDTO){
 
-        DATA_QUERY = "INSERT INTO TEST123 VALUES ('" + person.getLastName() + "','" + person.getFirstName() +
-                "','" + person.getMiddleName() + "','" + person.getSessionId() +"')";
+        DATA_QUERY = "INSERT INTO TEST123 VALUES ('" + personDTO.getLastName() + "','" + personDTO.getFirstName() +
+                "','" + personDTO.getMiddleName() + "','" + personDTO.getSessionId() +"')";
 
         try (Statement dataQuery = db.createStatement()) {
             dataQuery.execute(CREATE_QUERY);
@@ -42,18 +43,18 @@ public class ServiceDataBase {
         }
     }
 
-    public List<Person> selectFromDataBase(@SessionAttribute String sessionId) throws SQLException {
+    public List<PersonDTO> selectFromDataBase(@SessionAttribute String sessionId) throws SQLException {
 
         PreparedStatement query = db.prepareStatement("SELECT * FROM TEST123 WHERE sessionId = '" + sessionId + "'");
         ResultSet rs = query.executeQuery();
-        List<Person> list1 = new ArrayList<>();
+        List<PersonDTO> list1 = new ArrayList<>();
         convertToList(rs,list1);
         return list1;
 }
 
-    protected void convertToList(ResultSet rs, List<Person> p2) throws SQLException {
+    protected void convertToList(ResultSet rs, List<PersonDTO> p2) throws SQLException {
         while (rs.next()) {
-            p2.add(new Person(rs.getString(1), rs.getString(2),
+            p2.add(new PersonDTO(rs.getString(1), rs.getString(2),
                               rs.getString(3), rs.getString(4)));
         }
     }
