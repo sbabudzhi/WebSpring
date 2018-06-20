@@ -34,19 +34,16 @@ public class PersonDAOImp implements PersonDAO {
     }
 
     @Override
-    public List<Person> getPersonById(String sessionId) {
+    public List<Person> getPersonsBySessionId(String sessionId) {
         Session session = this.sessionFactory.getCurrentSession();
-        List<Person> personsList = session.createQuery("select NEW ru.babudzhi.modelPerson.Person(lastName,firstName,middleName,sessionId) " +
-                "from Person where sessionId = :sessionId").setParameter("sessionId",sessionId).getResultList();
-        return personsList;
+        return session.createQuery("from Person p where p.sessionId = :sessionId").setParameter("sessionId",sessionId).getResultList();
     }
 
     @Override
-    public void removePerson(String sessionId) {
+    public void removePerson(String id) {
         Session session = this.sessionFactory.getCurrentSession();
-        Person person = (Person) session.load(Person.class, new String(sessionId));
-        if(null != person){
-            session.delete(person);
-        }
+        Person p = new Person();
+        p.setId(id);
+        session.delete(p);
     }
 }

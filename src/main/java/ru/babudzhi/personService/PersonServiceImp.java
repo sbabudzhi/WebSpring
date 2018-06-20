@@ -33,13 +33,14 @@ public class PersonServiceImp implements PersonService {
 
     @Override
     @Transactional
-    public List<Person> getPersonById(String sessionId) {
-        return this.personDAO.getPersonById(sessionId);
+    public List<Person> getPersonsBySessionId(String sessionId) {
+        return this.personDAO.getPersonsBySessionId(sessionId);
     }
 
     @Override
-    public void removePerson(String sessionId) {
-        this.personDAO.removePerson(sessionId);
+    @Transactional
+    public void removePerson(String id) {
+        this.personDAO.removePerson(id);
     }
 }
 

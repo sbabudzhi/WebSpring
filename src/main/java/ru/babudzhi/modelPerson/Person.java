@@ -1,6 +1,7 @@
 package ru.babudzhi.modelPerson;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Table(name = "TEST123", schema = "PUBLIC", catalog = "TEST")
@@ -10,12 +11,14 @@ public class Person {
     private String firstName;
     private String middleName;
     private String sessionId;
+    private String id;
 
     public Person(String lastName, String firstName, String middleName, String sessionId){
         this.lastName = lastName;
         this.firstName = firstName;
         this.middleName = middleName;
         this.sessionId = sessionId;
+        this.id=UUID.randomUUID().toString();
     }
     public Person(){}
 
@@ -34,6 +37,10 @@ public class Person {
     public void setSessionId(String sessionId) {
         this.sessionId = sessionId;
     }
+
+    public void setId(String id) {
+        this.id = id;
+    }
     @Basic
     @Column(name = "LASTNAME")
     public String getLastName() {
@@ -45,9 +52,13 @@ public class Person {
     @Basic
     @Column(name = "MIDDLENAME")
     public String getMiddleName() { return middleName; }
-    @Id
+    @Basic
     @Column(name = "SESSIONID")
     public String getSessionId() { return sessionId; }
+
+    @Id
+    @Column(name = "ID")
+    public String getId() { return id; }
 
 
     @Override

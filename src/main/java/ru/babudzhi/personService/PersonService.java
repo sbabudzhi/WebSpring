@@ -8,7 +8,7 @@ public interface PersonService {
     public void addPerson(Person p);
     public void updatePerson(Person p);
     public List<Person> listPersons();
-    public List<Person> getPersonById(String sessionId);
-    public void removePerson(String sessionId);
+    public List<Person> getPersonsBySessionId(String sessionId);
+    public void removePerson(String id);
 
 }

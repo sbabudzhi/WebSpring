@@ -43,8 +43,8 @@ public class PersonController {
 
     @RequestMapping(value = "/persons", method = RequestMethod.POST)
     public ModelAndView listPersons(Model model, HttpServletRequest request) {
-        model.addAttribute("listPerson", personService.getPersonById(request.getSession().getId()));
-        return new ModelAndView("results");
+        model.addAttribute("listPerson", personService.getPersonsBySessionId(request.getSession().getId()));
+       return new ModelAndView("results");
     }
 
     @RequestMapping(value= "/add", method = RequestMethod.POST)
@@ -54,15 +54,16 @@ public class PersonController {
         return new ModelAndView("index");
     }
 
-    @RequestMapping("/remove/{id}")
-    public String removePerson(@PathVariable("sessionId") String sessionId){
-        this.personService.removePerson(sessionId);
-        return "redirect:/persons";
+    @RequestMapping(value = "/remove", method = RequestMethod.POST)
+    public ModelAndView removePerson(Model model, HttpServletRequest request, @RequestParam String idPerson){
+        this.personService.removePerson(idPerson);
+        model.addAttribute("listPerson",this.personService.getPersonsBySessionId(request.getSession().getId()));
+        return new ModelAndView("results");
     }
 
     @RequestMapping("/edit/{id}")
     public String editPerson(@PathVariable("sessionId") String sessionId, Model model){
-        model.addAttribute("person", this.personService.getPersonById(sessionId));
+        model.addAttribute("person", this.personService.getPersonsBySessionId(sessionId));
         model.addAttribute("listPersons", this.personService.listPersons());
         return "person";
     }
