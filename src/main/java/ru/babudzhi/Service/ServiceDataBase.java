@@ -1,8 +1,8 @@
-package ru.babudzhi.serviceDB;
+package ru.babudzhi.Service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.SessionAttribute;
-import ru.babudzhi.person.PersonDTO;
+import ru.babudzhi.DTO.PersonDTO;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -32,8 +32,8 @@ public class ServiceDataBase {
 
     public void insertInDataBase (PersonDTO personDTO){
 
-        DATA_QUERY = "INSERT INTO TEST123 VALUES ('" + personDTO.getLastName() + "','" + personDTO.getFirstName() +
-                "','" + personDTO.getMiddleName() + "','" + personDTO.getSessionId() +"')";
+//        DATA_QUERY = "INSERT INTO TEST123 VALUES ('" + personDTO.getLastName() + "','" + personDTO.getFirstName() +
+//                "','" + personDTO.getMiddleName() + "','" + personDTO.getSessionId() +"')";
 
         try (Statement dataQuery = db.createStatement()) {
             dataQuery.execute(CREATE_QUERY);

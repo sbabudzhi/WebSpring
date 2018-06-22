@@ -1,10 +1,10 @@
-package ru.babudzhi.personDAO;
+package ru.babudzhi.DAO;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import ru.babudzhi.modelPerson.Person;
+import ru.babudzhi.model.Person;
 import java.util.List;
 
 @Repository
@@ -17,12 +17,6 @@ public class PersonDAOImp implements PersonDAO {
     public void addPerson(Person person) {
         Session session = this.sessionFactory.getCurrentSession();
         session.persist(person);
-    }
-
-    @Override
-    public void updatePerson(Person person) {
-        Session session = this.sessionFactory.getCurrentSession();
-        session.update(person);
     }
 
     @SuppressWarnings("unchecked")

@@ -1,6 +1,8 @@
-package ru.babudzhi.modelPerson;
+package ru.babudzhi.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -59,6 +61,10 @@ public class Person {
     @Id
     @Column(name = "ID")
     public String getId() { return id; }
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "PERSONHOME", joinColumns = {@JoinColumn(name = "personId")}, inverseJoinColumns = {@JoinColumn(name = "homeId")})
+    private Set<Home> home = new HashSet<Home>();
 
 
     @Override

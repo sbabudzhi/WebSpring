@@ -1,9 +1,11 @@
-package ru.babudzhi.personService;
+package ru.babudzhi.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.babudzhi.modelPerson.Person;
-import ru.babudzhi.personDAO.PersonDAO;
+import ru.babudzhi.Service.PersonService;
+import ru.babudzhi.model.Person;
+import ru.babudzhi.DTO.PersonDTO;
+import ru.babudzhi.DAO.PersonDAO;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -15,14 +17,8 @@ public class PersonServiceImp implements PersonService {
 
     @Override
     @Transactional
-    public void addPerson(Person p) {
-        this.personDAO.addPerson(p);
-    }
-
-    @Override
-    @Transactional
-    public void updatePerson(Person p) {
-        this.personDAO.updatePerson(p);
+    public void addPerson(PersonDTO p) {
+        this.personDAO.addPerson(p.getPerson());
     }
 
     @Override
@@ -33,9 +29,7 @@ public class PersonServiceImp implements PersonService {
 
     @Override
     @Transactional
-    public List<Person> getPersonsBySessionId(String sessionId) {
-        return this.personDAO.getPersonsBySessionId(sessionId);
-    }
+    public List<Person> getPersonsBySessionId(String sessionId) {return this.personDAO.getPersonsBySessionId(sessionId);}
 
     @Override
     @Transactional
