@@ -1,8 +1,9 @@
 package ru.babudzhi.model;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.*;
-
+@Transactional
 @Entity
 @Table(name = "HOME")
 public class Home {
@@ -13,7 +14,6 @@ public class Home {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "PERSONHOME", joinColumns = {@JoinColumn(name = "homeId")}, inverseJoinColumns = {@JoinColumn(name = "personId")})
     private Set<Person> person = new HashSet<Person>();
-
 
     public Home(){}
 
@@ -34,8 +34,13 @@ public class Home {
     public void setId(String id) {
         this.id = id;
     }
+
     public void setSessionId(String sessionId){
         this.sessionId = sessionId;
+    }
+
+    public void setPerson(Set<Person> person) {
+        this.person = person;
     }
 
     @Basic
@@ -56,4 +61,11 @@ public class Home {
     @Basic
     @Column(name = "SESSIONID")
     public String getSessionId(){return sessionId;}
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "PERSONHOME", joinColumns = {@JoinColumn(name = "homeId")}, inverseJoinColumns = {@JoinColumn(name = "personId")})
+    public Set<Person> getPerson() {
+        return person;
+    }
+
+
 }

@@ -10,5 +10,6 @@ public interface PersonService {
     public List<Person> listPersons();
     public List<Person> getPersonsBySessionId(String sessionId);
     public void removePerson(String id);
+    public Person getPersonById(String id);
 
 }

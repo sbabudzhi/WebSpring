@@ -36,6 +36,11 @@ public class PersonServiceImp implements PersonService {
     public void removePerson(String id) {
         this.personDAO.removePerson(id);
     }
+
+    @Override
+    public Person getPersonById(String id) {
+            return this.personDAO.getPersonById(id);
+    }
 }
 
 

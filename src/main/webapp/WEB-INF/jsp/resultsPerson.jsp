@@ -10,7 +10,7 @@
 <table>
     <tbody>
 <p></p>
-    <c:forEach items="${listPerson}" var="test" >
+    <c:forEach items="${listPersons}" var="test" >
             <c:out value="${test.lastName}"/>
             <c:out value="${test.firstName}"/>
             <c:out value="${test.middleName}"/>

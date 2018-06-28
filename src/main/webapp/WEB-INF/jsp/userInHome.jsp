@@ -10,15 +10,14 @@
 <table>
 <p>
     <form action="addUserInHome" method="post"><p>
-        <c:forEach items="${listPerson}" var="test" >
+        <c:forEach items="${listPersons}" var="test" >
             <c:out value="${test.lastName}"/>
             <c:out value="${test.firstName}"/>
             <c:out value="${test.middleName}"/>
-            <input type="hidden" name = "idPerson" value="${test.id}">
-            <c:forEach items="${listHomes}" var="home">
-                 <input type="hidden" name="idHome" value="${home.id}">
-                <input type="checkbox" name="home" value="${home.id}">Ул. "${home.street}"  д."${home.number}"
-            </c:forEach> <Br> <br>
+
+                <c:forEach items="${listHomes}" var="home">
+                    <input type="checkbox" name="home" value="${test.id}_${home.id}">Ул. "${home.street}"  д."${home.number}"
+                </c:forEach> <Br> <br>
         </c:forEach> <br>
             <input type="submit" name="addUserInHome" value="Отправить">
     </form>

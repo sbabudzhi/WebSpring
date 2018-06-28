@@ -4,14 +4,23 @@ import ru.babudzhi.model.Person;
 import java.util.UUID;
 
 public class PersonDTO {
-     Person person;
-     public  PersonDTO(String lastName, String firstName, String middleName, String sessionId){
-         person = new Person(lastName,firstName,middleName,sessionId);
-         person.setId(UUID.randomUUID().toString());
-     }
-     public Person getPerson(){
-         return person;
-     }
+    Person person;
+
+    public PersonDTO(String lastName, String firstName, String middleName, String sessionId) {
+        person = new Person(lastName, firstName, middleName, sessionId);
+        person.setId(UUID.randomUUID().toString());
+    }
+    public PersonDTO(){}
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+}
 //    private String firstName;
 //    private String middleName;
 //    private String lastName;
@@ -39,4 +48,3 @@ public class PersonDTO {
 //
 //    public String getSessionId(){ return this.sessionId;}
 
-}

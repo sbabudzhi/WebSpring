@@ -1,3 +1,4 @@
+<%@ page import="ru.babudzhi.model.Person" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html;charset=utf-8" %>
 <html>
@@ -11,13 +12,25 @@
     </style>
 </head>
 <body>
-<%--<div class="text">--%>
-    <%--<h1>Введите название улицы и номер дома:</h1>--%>
+<div class="text">
+<h1>Жители домов:</h1>
+</div>
+<table>
+    <tbody>
+    <c:forEach items="${listPersonsWithHome}" var="personDTO">
+        <c:out value="${personDTO.person.lastName}"/>
+        <c:out value="${personDTO.person.firstName}"/>
+        <c:out value="${personDTO.person.middleName}"/> :
 
-<%--<c:forEach items="personHome" var="personHome">--%>
-    <%--<c:out value="${personHome}"></c:out>--%>
-<%--</c:forEach>--%>
-    <%--</form>--%>
-<%--</div>--%>
+        <c:forEach items="${personDTO.person.home}" var="home">
+                Ул. <c:out value="${home.street}"/>
+             д.<c:out value="${home.number}"/>
+
+        </c:forEach><p>
+
+    </c:forEach></p>
+    </tbody>
+</table>
+
 </body>
 </html>

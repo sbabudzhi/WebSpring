@@ -31,7 +31,7 @@ public class HomeServiceImpl implements HomeService {
 
     @Override
     @Transactional
-    public List<Home> getHomeListByPerson(String sessionId) {
+    public Home getHomeListByPerson(String sessionId) {
         return this.homeDAO.getHomeListByPerson(sessionId);
     }
 

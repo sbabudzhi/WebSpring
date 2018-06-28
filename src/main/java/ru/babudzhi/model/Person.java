@@ -1,10 +1,13 @@
 package ru.babudzhi.model;
 
+import org.hibernate.Hibernate;
+
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-
+@Transactional
 @Entity
 @Table(name = "TEST123", schema = "PUBLIC", catalog = "TEST")
 public class Person {
@@ -62,10 +65,17 @@ public class Person {
     @Column(name = "ID")
     public String getId() { return id; }
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "PERSONHOME", joinColumns = {@JoinColumn(name = "personId")}, inverseJoinColumns = {@JoinColumn(name = "homeId")})
+
     private Set<Home> home = new HashSet<Home>();
 
+    public void setHome(Set<Home> home) {
+        this.home = home;
+    }
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "PERSONHOME", joinColumns = {@JoinColumn(name = "personId")}, inverseJoinColumns = {@JoinColumn(name = "homeId")})
+    public Set<Home> getHome() {
+        return home;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -31,9 +31,9 @@ public class HomeDAOImpl implements HomeDAO {
     }
 
     @Override
-    public List<Home> getHomeListByPerson(String sessionId) {
+    public Home getHomeListByPerson(String id) {
         Session session = sessionFactory.getCurrentSession();
-        return null;// session.createQuery("from  Home   where id =:id").setParameter("id",Person.class).getResultList();
+        return  (Home) session.get(Home.class,id);//session.createQuery("from Home where id=:id ").setParameter("id",id).getResultList();
     }
 
     @Override

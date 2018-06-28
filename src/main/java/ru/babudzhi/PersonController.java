@@ -9,14 +9,15 @@ import ru.babudzhi.DTO.HomeDTO;
 import ru.babudzhi.Service.HomeService;
 import ru.babudzhi.DTO.PersonDTO;
 import ru.babudzhi.Service.PersonService;
-import ru.babudzhi.model.Person;
-import ru.babudzhi.personHome.PersonHome;
-
+import ru.babudzhi.model.Home;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
+
 public class PersonController {
     /*@Autowired
     ServiceDataBase serviceDataBase;
@@ -36,10 +37,10 @@ public class PersonController {
     @RequestMapping(value=("/personControllerResult"), method = RequestMethod.POST)
     public ModelAndView getResults(HttpServletRequest request) throws SQLException {
 
-        List<PersonDTO> listPerson = serviceDataBase.selectFromDataBase((request.getSession().getId()));
+        List<PersonDTO> listPersons = serviceDataBase.selectFromDataBase((request.getSession().getId()));
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("results");
-        modelAndView.addObject("list1", listPerson );
+        modelAndView.addObject("list1", listPersons );
         return modelAndView;
     }*/
     @Autowired
@@ -63,7 +64,7 @@ public class PersonController {
     @RequestMapping(value = "/userInHome")
     public ModelAndView userInHome(Model model,HttpServletRequest request){
         model.addAttribute("listHomes",homeService.getHomeList(request.getSession().getId()));
-        model.addAttribute("listPerson", personService.getPersonsBySessionId(request.getSession().getId()));
+        model.addAttribute("listPersons", personService.getPersonsBySessionId(request.getSession().getId()));
         return new ModelAndView("userInHome");
     }
 
@@ -80,21 +81,15 @@ public class PersonController {
         return new ModelAndView("homeEnter");
     }
     @RequestMapping(value = "/addUserInHome")
-    public ModelAndView addUserInHome(@RequestParam String[] idPerson, @RequestParam String idHome,Model model, @RequestParam String[] home){
-       List<PersonHome> listPersonHome = new ArrayList<>();
-       for(int j = 0;j < idPerson.length; j++)
-        for(int i = 0; i< home.length; i++){
-            System.out.println(idPerson[j]+" !!!!! " + home[i]);
-           listPersonHome.add(new PersonHome(idPerson[j], home[i]));
-        }
-        model.addAttribute("listPersonHome",listPersonHome);
+    public ModelAndView addUserInHome(Model model, @RequestParam String[] home){
+        model.addAttribute("listPersonsWithHome", addUserInHome(home));
         return new ModelAndView("results");
-    }
+}
 
 
     @RequestMapping(value = "/persons", method = RequestMethod.POST)
     public ModelAndView listPersons(Model model, HttpServletRequest request) {
-        model.addAttribute("listPerson", personService.getPersonsBySessionId(request.getSession().getId()));
+        model.addAttribute("listPersons", personService.getPersonsBySessionId(request.getSession().getId()));
        return new ModelAndView("resultsPerson");
     }
     @RequestMapping(value = "/homes", method = RequestMethod.POST)
@@ -115,9 +110,28 @@ public class PersonController {
     }
 
 
+    public List<PersonDTO> addUserInHome(String home[]){
+        Set<Home> homes = new HashSet<Home>();
+        String del = "\\_";
+        PersonDTO personDTO;
+        HomeDTO homeDTO;
+        List<PersonDTO> listPerson = new ArrayList<>();
 
-
-
-
-
+        for(int i = 0; i< home.length; i++){
+            personDTO =  new PersonDTO();
+            homeDTO = new HomeDTO();
+            personDTO.setPerson(personService.getPersonById(home[i].split(del)[0]));
+            homeDTO.setHome(homeService.getHomeListByPerson(home[i].split(del)[1]));
+            if(i!= 0 && !home[i].split(del)[0].equals(home[i - 1].split(del)[0]))  //если этот персон не является тем же самым, что был прошлый раз
+                homes = new HashSet<Home>();
+            homes.add(homeDTO.getHome());
+            if(i!= 0 && home[i].split(del)[0].equals(home[i-1].split(del)[0]))   //если этот персон является тем же самым, что был прошлый раз
+                listPerson.get(listPerson.size()-1).getPerson().setHome(homes); //обновить коллекцию домов
+            else{
+                    personDTO.getPerson().setHome(homes); //добавить коллекцию
+                    listPerson.add(personDTO);//добавить нового персона
+            }
+        }
+        return listPerson;
+    }
 }

@@ -28,6 +28,13 @@ public class PersonDAOImp implements PersonDAO {
     }
 
     @Override
+    public Person getPersonById(String id) {
+        Session session = this.sessionFactory.getCurrentSession();
+        return (Person) session.get(Person.class,id);
+      // session.createQuery("from Person where id=:id ").setParameter("id",id).getResultList();
+    }
+
+    @Override
     public List<Person> getPersonsBySessionId(String sessionId) {
         Session session = this.sessionFactory.getCurrentSession();
         return session.createQuery("from Person p where p.sessionId = :sessionId").setParameter("sessionId",sessionId).getResultList();
@@ -40,4 +47,6 @@ public class PersonDAOImp implements PersonDAO {
         p.setId(id);
         session.delete(p);
     }
+
+
 }

@@ -2,8 +2,6 @@ package ru.babudzhi.DTO;
 
 import ru.babudzhi.model.Home;
 
-import java.util.UUID;
-
 public class HomeDTO {
     private Home home;
 
@@ -11,7 +9,13 @@ public class HomeDTO {
         home= new Home(street,number,sessionId);
     }
 
+    public HomeDTO(){}
+
     public Home getHome() {
         return home;
+    }
+
+    public void setHome(Home home) {
+        this.home = home;
     }
 }

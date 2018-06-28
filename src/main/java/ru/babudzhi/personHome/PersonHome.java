@@ -2,7 +2,6 @@ package ru.babudzhi.personHome;
 
 import javax.persistence.*;
 
-@Entity
 @Table(name = "PERSONHOME")
 public class PersonHome {
 
@@ -25,5 +24,13 @@ public class PersonHome {
     }
     public void setPersonId(String personId) {
         this.personId = personId;
+    }
+
+    public String getHomeId() {
+        return homeId;
+    }
+
+    public String getPersonId() {
+        return personId;
     }
 }
