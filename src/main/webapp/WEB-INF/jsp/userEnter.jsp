@@ -18,13 +18,13 @@
             <input type="text" name="middleName" onkeydown="if(event.keyCode==13){return false;}">
         <input type="submit" name="enter" value="Отправить">
     </form></p>
-    <form method="post" action="persons">
-        <p> <input type="submit" name="res" value="Результат" ></p>
-    </form>
-
-    <form method="post" action="homeEnter" >
+     <form method="post" action="homeEnter" >
         <p><input type="submit" name="enterHome" value="Ввести дома"></p>
     </form>
+    <form method="post" action="userInHome">
+        <p> <input type="submit" name="addUser" value="Добавить жителя в дом" ></p>
+    </form>
+
 </div>
 </body>
 </html>

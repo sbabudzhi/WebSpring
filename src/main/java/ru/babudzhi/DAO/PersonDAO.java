@@ -10,4 +10,5 @@ public interface PersonDAO {
     public List<Person> getPersonsBySessionId(String sessionId);
     public void removePerson(String id);
     public Person getPersonById(String id);
+    public void update(Person p);
 }

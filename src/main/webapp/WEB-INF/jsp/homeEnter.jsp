@@ -22,7 +22,7 @@
         <p> <input type="submit" name="addUser" value="Добавить жителя в дом" ></p>
     </form>
     <form method="post" action="userEnter" >
-        <p><input type="submit" name="enterUser" value="Ввести пользователя"></p>
+        <p><input type="submit" name="enterUser" value="Ввести ФИО пользователя"></p>
     </form>
 </div>
 </body>

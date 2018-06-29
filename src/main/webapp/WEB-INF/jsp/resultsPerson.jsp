@@ -10,22 +10,38 @@
 <table>
     <tbody>
 <p></p>
-    <c:forEach items="${listPersons}" var="test" >
-            <c:out value="${test.lastName}"/>
-            <c:out value="${test.firstName}"/>
-            <c:out value="${test.middleName}"/>
+    <c:forEach items="${listPersons}" var="person" >
+        <c:out value="${person.lastName}"/>
+        <c:out value="${person.firstName}"/>
+        <c:out value="${person.middleName}"/>:
+
+        <c:set var="homeExist" value="${person.homeDTO.size()}"/>
+        <c:if test="${homeExist == 0}">
+            Дома не найдены
+        </c:if>
+        <c:if test="${homeExist != 0}">
+            <c:forEach items="${person.homeDTO}" var="home">
+                Ул. <c:out value="${home.street}"/>
+                д.<c:out value="${home.number}"/>
+            </c:forEach>
+        </c:if>
 
         <form action="remove" method="post">
-            <input type="hidden" name = "idPerson" value="${test.id}">
+            <input type="hidden" name = "idPerson" value="${person.id}">
             <input type="submit" name= "deleteButton" value="Удалить строку">
         </form>
         <Br>
         <Br>
-       </c:forEach>
+    </c:forEach>
 <p>Вернуться к вводу
     <form action="userEnter" method="post">
         <input type="submit" name= "back" value="Назад">
     </form>
+</p>
+<p>Посмотреть в JSON
+<form action="/getPersonWithHome" method="post">
+    <input type="submit" name= "show" value="Посмотреть">
+</form>
 </p>
     </tbody>
 </table>

@@ -17,13 +17,22 @@ public class Person {
     private String middleName;
     private String sessionId;
     private String id;
+    private Set<Home> home = null;
 
-    public Person(String lastName, String firstName, String middleName, String sessionId){
+    public Person(String lastName, String firstName, String middleName, String sessionId, String id){
         this.lastName = lastName;
         this.firstName = firstName;
         this.middleName = middleName;
         this.sessionId = sessionId;
-        this.id=UUID.randomUUID().toString();
+        this.id=id;
+    }
+    public Person(String lastName, String firstName, String middleName, String sessionId, String id,Set<Home> homeSet){
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.sessionId = sessionId;
+        this.id=id;
+        this.home = homeSet;
     }
     public Person(){}
 
@@ -46,11 +55,13 @@ public class Person {
     public void setId(String id) {
         this.id = id;
     }
+
+    public void setHome(Set<Home> home) {
+        this.home = home;
+    }
     @Basic
     @Column(name = "LASTNAME")
-    public String getLastName() {
-        return lastName;
-    }
+    public String getLastName() {return lastName;}
     @Basic
     @Column(name = "FIRSTNAME")
     public String getFirstName() { return firstName; }
@@ -65,13 +76,7 @@ public class Person {
     @Column(name = "ID")
     public String getId() { return id; }
 
-
-    private Set<Home> home = new HashSet<Home>();
-
-    public void setHome(Set<Home> home) {
-        this.home = home;
-    }
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany()
     @JoinTable(name = "PERSONHOME", joinColumns = {@JoinColumn(name = "personId")}, inverseJoinColumns = {@JoinColumn(name = "homeId")})
     public Set<Home> getHome() {
         return home;

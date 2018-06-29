@@ -11,12 +11,17 @@ public class Home {
     private String number;
     private String id;
     private String sessionId;
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "PERSONHOME", joinColumns = {@JoinColumn(name = "homeId")}, inverseJoinColumns = {@JoinColumn(name = "personId")})
     private Set<Person> person = new HashSet<Person>();
 
     public Home(){}
 
+    public Home(String street, String number, String sessionId, String id){
+        this.street = street;
+        this.number = number;
+        this.id = id;
+        this.sessionId = sessionId;
+        person = new HashSet<>();
+    }
     public Home(String street, String number, String sessionId){
         this.street = street;
         this.number = number;
@@ -66,6 +71,7 @@ public class Home {
     public Set<Person> getPerson() {
         return person;
     }
+
 
 
 }

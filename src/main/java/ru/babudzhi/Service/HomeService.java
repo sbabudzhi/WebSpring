@@ -1,14 +1,11 @@
 package ru.babudzhi.Service;
 
 import ru.babudzhi.DTO.HomeDTO;
-import ru.babudzhi.model.Home;
 
 import java.util.List;
 
 public interface HomeService  {
     public void addHome(HomeDTO home);
-    public void removeHome (String id);
-    public Home getHomeListByPerson(String sessionId);
-    public List<Home> getHomeList(String sessionId);
-    public void updateHome(String id);
+    public HomeDTO getHomeById(String sessionId);
+    public List<HomeDTO> getHomeListBySessionId(String sessionId);
 }

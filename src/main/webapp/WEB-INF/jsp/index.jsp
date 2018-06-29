@@ -13,11 +13,11 @@
 <div class="text">
     <h1>Выберите желаемое действие</h1>
     <form method="post" action="userEnter" accept-charset="UTF-8">
-        <p> <input type="submit" name="enterPerson" value="Ввести пользователя">
+        <p> <input type="submit" name="enterPerson" value="Ввести ФИО пользователя">
     </form>
 
     <form method="post" action="homeEnter" accept-charset="UTF-8">
-        <p> <input type="submit" name="enterHome" value="Ввести дома" ></p>
+        <p> <input type="submit" name="enterHome" value="Ввести адрес дома" ></p>
     </form>
 </div>
 </body>

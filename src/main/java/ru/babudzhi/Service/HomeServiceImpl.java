@@ -6,7 +6,9 @@ import ru.babudzhi.DTO.HomeDTO;
 import ru.babudzhi.DAO.HomeDAO;
 import ru.babudzhi.model.Home;
 
+
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,30 +21,26 @@ public class HomeServiceImpl implements HomeService {
     @Override
     @Transactional
     public void addHome(HomeDTO home) {
-        this.homeDAO.addHome(home.getHome());
 
+        this.homeDAO.addHome(new Home(home.getStreet(),home.getNumber(),home.getSessionId(),home.getId()));
     }
-
     @Override
     @Transactional
-    public void removeHome(String id) {
-        this.homeDAO.removeHome(id);
+    public HomeDTO getHomeById(String id) {
+        Home home = this.homeDAO.getHomeById(id);
+        return new HomeDTO(home.getStreet(),home.getNumber(),home.getSessionId(),home.getId());
     }
 
     @Override
-    @Transactional
-    public Home getHomeListByPerson(String sessionId) {
-        return this.homeDAO.getHomeListByPerson(sessionId);
-    }
+    public List<HomeDTO> getHomeListBySessionId(String sessionId) {
+        List<Home> listHome = this.homeDAO.getHomeListBySessionId(sessionId);
+        List<HomeDTO> listHDTO = new ArrayList<>();
+        for (int i = 0; i< listHome.size(); i++) {
+             HomeDTO persDTO = new HomeDTO(listHome.get(i).getStreet(),listHome.get(i).getNumber(),
+                    listHome.get(i).getSessionId(), listHome.get(i).getId());
+            listHDTO.add(persDTO);
 
-    @Override
-    public List<Home> getHomeList(String sessionId) {
-        return this.homeDAO.getHomeList(sessionId);
-    }
-
-    @Override
-    @Transactional
-    public void updateHome(String id) {
-        this.homeDAO.updateHome(id);
+        }
+        return listHDTO;
     }
 }

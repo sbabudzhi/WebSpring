@@ -1,15 +1,14 @@
 package ru.babudzhi.Service;
-import ru.babudzhi.model.Person;
-import ru.babudzhi.DTO.PersonDTO;
 
+import ru.babudzhi.DTO.PersonDTO;
 import java.util.List;
 
 public interface PersonService {
 
     public void addPerson(PersonDTO p);
-    public List<Person> listPersons();
-    public List<Person> getPersonsBySessionId(String sessionId);
+    public List<PersonDTO> listPersons();
+    public List<PersonDTO> getPersonsBySessionId(String sessionId);
     public void removePerson(String id);
-    public Person getPersonById(String id);
-
+    public PersonDTO getPersonById(String id);
+    public void update(PersonDTO p);
 }

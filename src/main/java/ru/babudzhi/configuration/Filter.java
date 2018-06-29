@@ -11,12 +11,10 @@ public class Filter implements javax.servlet.Filter {
             response.setCharacterEncoding("UTF-8");
             next.doFilter(request, response);
         }
-
     @Override
     public void destroy() {
 
     }
-
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 

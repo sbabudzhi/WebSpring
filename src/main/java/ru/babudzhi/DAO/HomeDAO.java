@@ -8,11 +8,7 @@ public interface HomeDAO {
 
     public void addHome(Home home);
 
-    public void removeHome(String id);
+    public Home getHomeById(String person);
 
-    public Home getHomeListByPerson(String person);
-
-    public List<Home> getHomeList(String sessionId);
-
-    public void updateHome(String id);
+    public List<Home> getHomeListBySessionId(String sessionId);
 }

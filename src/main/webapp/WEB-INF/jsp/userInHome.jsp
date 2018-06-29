@@ -9,14 +9,14 @@
     <b>Выберите дома для каждого жителя.</b>
 <table>
 <p>
-    <form action="addUserInHome" method="post"><p>
-        <c:forEach items="${listPersons}" var="test" >
-            <c:out value="${test.lastName}"/>
-            <c:out value="${test.firstName}"/>
-            <c:out value="${test.middleName}"/>
+    <form action="addUserInHome" method="post"><p></p>
+        <c:forEach items="${listPersons}" var="person" >
+            <c:out value="${person.lastName}"/>
+            <c:out value="${person.firstName}"/>
+            <c:out value="${person.middleName}"/>
 
                 <c:forEach items="${listHomes}" var="home">
-                    <input type="checkbox" name="home" value="${test.id}_${home.id}">Ул. "${home.street}"  д."${home.number}"
+                    <input type="checkbox" name="home" value="${person.id}_${home.id}">Ул. "${home.street}"  д."${home.number}"
                 </c:forEach> <Br> <br>
         </c:forEach> <br>
             <input type="submit" name="addUserInHome" value="Отправить">
@@ -24,7 +24,7 @@
    <p>
     Вернуться к вводу домов
         <form action="homeEnter" method="post">
-            <input type="submit" value="Ввести дома">
+            <input type="submit" value="Ввести адрес дома">
         </form>
     </p>
     <p>

@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import ru.babudzhi.model.Home;
 import ru.babudzhi.model.Person;
 import java.util.List;
 
@@ -30,8 +31,22 @@ public class PersonDAOImp implements PersonDAO {
     @Override
     public Person getPersonById(String id) {
         Session session = this.sessionFactory.getCurrentSession();
-        return (Person) session.get(Person.class,id);
-      // session.createQuery("from Person where id=:id ").setParameter("id",id).getResultList();
+        return session.load(Person.class,id);
+    }
+
+    @Override
+    public void update(Person p) {
+
+        Session session = this.sessionFactory.getCurrentSession();
+        Person person = session.load(Person.class,p.getId());
+        person.setLastName(p.getLastName());
+        person.setFirstName(p.getFirstName());
+        person.setMiddleName(p.getMiddleName());
+        person.setSessionId(p.getSessionId());
+        person.setHome(null);
+        session.update(person);
+        person.setHome(p.getHome());
+        session.update(person);
     }
 
     @Override
